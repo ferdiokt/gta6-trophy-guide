@@ -1,5 +1,5 @@
 // The checklist: filter chips, the ruled trophy list, and the open trophy's cited guide beside it.
-import { el, gradeBadge, KIND_LABEL, GRADE_LABEL } from './dom.js';
+import { el, gradeBadge, missLabel, KIND_LABEL, GRADE_LABEL } from './dom.js';
 import { isShielded, searchableText } from './spoilers.js';
 
 export const FILTERS = [
@@ -57,7 +57,7 @@ export function renderList(root, list, progress, view, on) {
       el('span', { class: 'row-meta' },
         gradeBadge(t.grade),
         el('span', { class: 'tag' }, KIND_LABEL[t.kind]),
-        t.missable && !shut ? el('span', { class: 'tag tag-miss' }, 'Missable') : null,
+        t.missable && !shut ? el('span', { class: 'tag tag-miss' }, missLabel(t)) : null,
         t.count && !shut ? el('span', { class: 'tag tag-count' }, counterText(t, progress)) : null,
         shut ? el('button', { type: 'button', class: 'reveal', onclick: () => on.reveal(t.name) }, 'Reveal') : null));
   }));
@@ -75,7 +75,8 @@ export function renderDetail(root, t, progress, stages, on) {
   const earned = Boolean(progress.earned[t.name]);
   const head = el('header', { class: 'detail-head' },
     el('div', { class: 'detail-meta' }, gradeBadge(t.grade), el('span', { class: 'tag' }, KIND_LABEL[t.kind]),
-      el('span', { class: 'tag' }, `Stage ${t.stage}: ${stages[t.stage - 1].title}`)),
+      el('span', { class: 'tag' }, `Stage ${t.stage}: ${stages[t.stage - 1].title}`),
+      t.chapter ? el('span', { class: 'tag' }, `Chapter ${t.chapter}`) : null),
     el('h2', { class: 'detail-name' }, shut ? 'Hidden trophy' : t.name),
     el('p', { class: 'detail-desc' }, shut ? `A ${GRADE_LABEL[t.grade].toLowerCase()} ${KIND_LABEL[t.kind].toLowerCase()} trophy. Its name, description and guide stay hidden while the spoiler shield is on.` : t.description));
 
@@ -89,7 +90,7 @@ export function renderDetail(root, t, progress, stages, on) {
   }
 
   const parts = [head];
-  if (t.missable) parts.push(el('p', { class: 'miss-note' }, el('strong', {}, 'Missable. '), t.missable));
+  if (t.missable) parts.push(el('p', { class: 'miss-note' }, el('strong', {}, `${missLabel(t)}. `), t.missable));
   if (t.count) {
     const v = progress.counters[t.name] || 0;
     const step = t.count >= 1000 ? 5000 : 1;
@@ -106,7 +107,7 @@ export function renderDetail(root, t, progress, stages, on) {
   parts.push(el('div', { class: 'sources' },
     el('h3', { class: 'guide-title' }, t.sources.length ? 'Sources' : 'No source yet'),
     t.sources.length
-      ? el('ul', {}, t.sources.map((s) => el('li', {}, el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.name), el('span', { class: 'src-url' }, ` ${s.url.replace(/^https?:\/\//, '')}`))))
+      ? el('ul', {}, t.sources.map((s) => el('li', {}, el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.name), el('span', { class: 'src-url' }, ` ${new URL(s.url).hostname.replace(/^www\./, '')}`))))
       : el('p', {}, 'No public guide covers this trophy yet, so the steps above say only what its official description implies.')));
   parts.push(el('div', { class: 'detail-actions' },
     el('button', { type: 'button', class: `btn ${earned ? '' : 'btn-primary'}`, onclick: () => on.earn(t.name, !earned) }, earned ? 'Mark not earned' : 'Mark earned'),

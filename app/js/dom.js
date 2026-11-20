@@ -19,3 +19,6 @@ export const KIND_LABEL = {
 export function gradeBadge(grade) {
   return el('span', { class: `grade grade-${grade}`, title: `${GRADE_LABEL[grade]} trophy` }, GRADE_LABEL[grade]);
 }
+
+// "Possibly missable" where the cited source has not confirmed the lockout.
+export const missLabel = (t) => t.missable_label || 'Missable';

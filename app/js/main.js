@@ -49,6 +49,7 @@ function renderTally() {
 
 function render() {
   $('shield').checked = progress.settings.spoilerShield;
+  $('shield-state').textContent = progress.settings.spoilerShield ? 'on' : 'off';
   renderTally();
   if (view.tab === 'roadmap') { renderRoadmap($('view-roadmap'), trophies, progress, on); return; }
   const list = visibleTrophies(trophies, progress, view);

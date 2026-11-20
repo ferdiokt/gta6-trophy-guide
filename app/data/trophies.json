@@ -21,7 +21,7 @@
   },
   {
    "id": 2, "name": "Just Like Paradise", "description": "Complete Gone Fishing.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 1, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: it pops when you finish Gone Fishing, the first main mission of Chapter 1. Source: PowerPyx.",
    "steps": [
     { "text": "Gone Fishing opens Chapter 1. Finish it and the trophy unlocks on its own; it cannot be missed.", "src": [0] }
@@ -30,7 +30,7 @@
   },
   {
    "id": 3, "name": "Paradise Lost", "description": "Complete Chapter 1.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 1, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: it lands after What's in the Bag?, the first mission of Chapter 2. Source: PowerPyx.",
    "steps": [
     { "text": "The Chapter 1 trophy does not pop at the chapter's last mission; it arrives once you clear What's in the Bag?, the opener of Chapter 2.", "src": [0] },
@@ -40,7 +40,7 @@
   },
   {
    "id": 4, "name": "T**s Ass Drug Money", "description": "Complete Chapter 2.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 2, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: it lands after Welcome to Vice City, the first mission of Chapter 3. Source: PowerPyx.",
    "steps": [
     { "text": "Play on into Chapter 3; clearing its first mission, Welcome to Vice City, awards the Chapter 2 trophy.", "src": [0] }
@@ -49,7 +49,7 @@
   },
   {
    "id": 5, "name": "Vice City, Baby!", "description": "Complete Chapter 3.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 3, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: it lands after Ocean Beach and Another Life, the first two missions of Chapter 4. Source: PowerPyx.",
    "steps": [
     { "text": "The Chapter 3 trophy waits until you have cleared both Ocean Beach and Another Life at the start of Chapter 4.", "src": [0] }
@@ -58,7 +58,7 @@
   },
   {
    "id": 6, "name": "Top Of The World, Ma", "description": "Complete Chapter 4.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 4, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: Starting From Zero, the last mission of Chapter 4, awards it. Source: PowerPyx.",
    "steps": [
     { "text": "Starting From Zero closes Chapter 4; finishing it gives this trophy straight away.", "src": [0] }
@@ -67,7 +67,7 @@
   },
   {
    "id": 7, "name": "You Gotta Know When to Get Off", "description": "Complete the final mission.", "grade": "gold",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 5, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Gold for the campaign's last mission. Free roam goes on afterwards, but missions cannot be replayed, so keep a manual save first. Sources: PSNProfiles, PowerPyx.",
    "steps": [
     { "text": "Finish the last story mission of Chapter 5 for the gold.", "src": [0] },
@@ -80,7 +80,7 @@
   },
   {
    "id": 8, "name": "Trust", "description": "Complete Breakfast Run.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 2, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: Breakfast Run is a Chapter 2 main mission. Source: PowerPyx walkthrough.",
    "steps": [
     { "text": "Breakfast Run comes up in the Chapter 2 story; complete it and Trust unlocks.", "src": [0] }
@@ -89,7 +89,7 @@
   },
   {
    "id": 9, "name": "Break the Bank", "description": "Complete The Cartel Heist.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 3, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: The Cartel Heist is a Chapter 3 story mission. Source: PowerPyx.",
    "steps": [
     { "text": "Play the Chapter 3 story through The Cartel Heist; the trophy follows on its own.", "src": [0] }
@@ -98,7 +98,7 @@
   },
   {
    "id": 10, "name": "Family Matters", "description": "Complete Child's Play.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 4, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: Child's Play is part of the Chapter 4 story. Source: PowerPyx.",
    "steps": [
     { "text": "Child's Play is a Chapter 4 main mission; clear it to unlock Family Matters.", "src": [0] }
@@ -107,7 +107,7 @@
   },
   {
    "id": 11, "name": "DWNFALL", "description": "Complete Headliners.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 4, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: Headliners is a Chapter 4 main mission. Source: PowerPyx.",
    "steps": [
     { "text": "Headliners sits in the Chapter 4 story; finishing it awards DWNFALL.", "src": [0] }
@@ -116,7 +116,7 @@
   },
   {
    "id": 12, "name": "Hi-Jacked", "description": "Complete VCIA Takedown.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 4, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: VCIA Takedown comes up during Chapter 4. Source: PowerPyx.",
    "steps": [
     { "text": "VCIA Takedown is a Chapter 4 story mission; it gives the trophy when you finish it.", "src": [0] }
@@ -125,7 +125,7 @@
   },
   {
    "id": 13, "name": "Snow Storm", "description": "Complete Operation Savage Glory.", "grade": "bronze",
-   "kind": "story", "stage": 1, "hidden": true, "missable": null, "count": null,
+   "kind": "story", "chapter": 5, "stage": 1, "hidden": true, "missable": null, "count": null,
    "guide": "Automatic: Operation Savage Glory is a Chapter 5 story mission. Source: PowerPyx.",
    "steps": [
     { "text": "Operation Savage Glory arrives in Chapter 5; clear it and Snow Storm unlocks.", "src": [0] }
@@ -277,13 +277,13 @@
   },
   {
    "id": 28, "name": "Positive Mental Attitude", "description": "Meditate at every spot across Leonida.", "grade": "bronze",
-   "kind": "collectible", "stage": 1, "hidden": false,
-   "missable": "Possibly missable in Chapter 1: accept Lucia's balcony meditation before the chapter ends. PowerPyx has not confirmed whether it is required.",
+   "kind": "collectible", "chapter": 1, "stage": 1, "hidden": false,
+   "missable_label": "Possibly missable", "missable": "Chapter 1 window: accept Lucia's balcony meditation before the chapter ends. PowerPyx has not confirmed whether it is required.",
    "count": 18,
    "guide": "18 meditation spots. The first is a Chapter 1 scene with Lucia that can be skipped, so take it. Sources: PSNProfiles, PowerPyx.",
    "steps": [
     { "text": "After Down to Earth in Chapter 1, talk to Lucia in Jason's kitchen in the morning, follow her to the balcony and say yes to meditating.", "src": [1] },
-    { "text": "The PS5 tracker lists 18 meditation entries in all; sweep the rest in free roam.", "src": [0] }
+    { "text": "The PS5 tracker lists 18 meditation entries in all.", "src": [0] }
    ],
    "sources": [
     { "name": "PSNProfiles", "url": "https://psnprofiles.com/trophies/43531-grand-theft-auto-vi" },
@@ -487,8 +487,8 @@
   },
   {
    "id": 48, "name": "Actions Speak Louder", "description": "Choices made (for better or worse).", "grade": "bronze",
-   "kind": "misc", "stage": 1, "hidden": true,
-   "missable": "Choices are permanent: an Irredeemable Criminal Profile rating cannot be undone, so watch your profile from the first chapter.",
+   "kind": "misc", "chapter": 1, "stage": 1, "hidden": true,
+   "missable_label": "Possibly missable", "missable": "From Chapter 1, choices are permanent: an Irredeemable Criminal Profile rating cannot be undone, so watch your profile from the first chapter.",
    "count": 500,
    "guide": "Anything that moves your Criminal Profile adds progress (the PS5 tracker counts to 500). Turn on profile notifications and stay out of Irredeemable, which is permanent. Sources: GTABase, PSN 100%.",
    "steps": [
@@ -543,7 +543,7 @@
   },
   {
    "id": 53, "name": "Treat Yo Self", "description": "Spend $100,000 across all shops.", "grade": "bronze",
-   "kind": "misc", "stage": 4, "hidden": false, "missable": null, "count": 100000,
+   "kind": "misc", "stage": 5, "hidden": false, "missable": null, "count": 100000,
    "guide": "Every shop purchase feeds one running total; you do not have to buy in every shop. Source: GAMES.GG.",
    "steps": [
     { "text": "Purchases anywhere add to a single spending total of $100,000; one shop or many, it all counts.", "src": [0] }
@@ -552,7 +552,7 @@
   },
   {
    "id": 54, "name": "Little Boxes", "description": "Purchase all garage properties.", "grade": "bronze",
-   "kind": "misc", "stage": 4, "hidden": false, "missable": null, "count": 8,
+   "kind": "misc", "stage": 5, "hidden": false, "missable": null, "count": 8,
    "guide": "Buy the eight purchasable garages ($160,000 in all) in the Vice City Real Estate app after Daily Driver (Chapter 2); story garages do not count. Source: PowerPyx.",
    "steps": [
     { "text": "The Vice City Real Estate app arrives after Daily Driver in Chapter 2.", "src": [0] },
@@ -563,7 +563,7 @@
   },
   {
    "id": 55, "name": "On the Spot", "description": "Register 10 vehicles to the Scooter Bros app.", "grade": "bronze",
-   "kind": "misc", "stage": 4, "hidden": false, "missable": null, "count": 10,
+   "kind": "misc", "stage": 5, "hidden": false, "missable": null, "count": 10,
    "guide": "Scooter Bros opens after Moses (Chapter 2). Registering costs money and garage space, so register cheap cars and bikes after buying garages. Source: PowerPyx.",
    "steps": [
     { "text": "The Scooter Bros app installs after the Chapter 2 mission Moses.", "src": [0] },
