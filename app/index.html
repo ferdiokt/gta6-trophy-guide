@@ -3,23 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Leonida Ledger: GTA VI trophy guide and tracker</title>
+<meta name="description" content="Offline guide and tracker for the 55 Grand Theft Auto VI trophies on PS5: cited guides, platinum roadmap, missable flags.">
+<link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="bar">
+  <div class="brand">
+    <p class="wordmark">Leonida Ledger</p>
+    <p class="brand-sub">GTA VI trophy guide, PS5. Unofficial, offline.</p>
+  </div>
+  <div class="tally" id="tally" aria-live="polite"></div>
+  <div class="bar-tools">
+    <label class="switch">
+      <input type="checkbox" role="switch" id="shield" checked>
+      <span class="switch-track" aria-hidden="true"></span>
+      <span>Spoiler shield</span>
+    </label>
+    <button type="button" class="btn" id="export">Export</button>
+    <label class="btn" for="import-file">Import</label>
+    <input type="file" id="import-file" accept=".json,application/json" class="visually-hidden">
+    <button type="button" class="btn btn-quiet" id="reset">Reset</button>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+<nav class="tabs" role="tablist" aria-label="Views">
+  <button type="button" role="tab" id="tab-checklist" aria-controls="view-checklist" aria-selected="true">Checklist</button>
+  <button type="button" role="tab" id="tab-roadmap" aria-controls="view-roadmap" aria-selected="false">Platinum roadmap</button>
+  <p class="status" id="status" role="status"></p>
+</nav>
+<main>
+  <section id="view-checklist" role="tabpanel" aria-labelledby="tab-checklist" class="checklist">
+    <div class="list-pane">
+      <div class="toolbar">
+        <div class="chips" id="filters" aria-label="Filter by kind"></div>
+        <div class="toolbar-row">
+          <input type="search" id="search" placeholder="Search trophies and guides" aria-label="Search trophies">
+          <div class="seg" id="status-filter" aria-label="Filter by progress">
+            <button type="button" data-status="all" aria-pressed="true">All</button>
+            <button type="button" data-status="todo" aria-pressed="false">To do</button>
+            <button type="button" data-status="earned" aria-pressed="false">Earned</button>
+          </div>
+        </div>
+      </div>
+      <ul class="rows" id="rows" aria-label="Trophies"><li class="empty">Loading the trophy list…</li></ul>
+    </div>
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </section>
+  <section id="view-roadmap" role="tabpanel" aria-labelledby="tab-roadmap" class="roadmap" hidden></section>
+</main>
+<dialog id="dialog" class="dialog"></dialog>
+<noscript><p class="noscript">This tracker needs JavaScript to read its trophy list.</p></noscript>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
