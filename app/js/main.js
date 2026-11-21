@@ -4,12 +4,14 @@ import { loadProgress, saveProgress, setEarned, setCounter } from './progress.js
 import { renderFilters, renderList, renderDetail, visibleTrophies } from './checklist.js';
 import { renderRoadmap, STAGES } from './roadmap.js';
 import { downloadExport, startImport, confirmReset } from './transfer.js';
+import { renderDataCheck } from './datacheck.js';
 
 const $ = (id) => document.getElementById(id);
 const GRADES = ['platinum', 'gold', 'silver', 'bronze'];
 
 let progress = loadProgress();
-const view = { filter: 'all', status: 'all', query: '', selected: null, tab: 'checklist' };
+// panel: null shows the open trophy's guide; 'check' the data check; an element (the import review) as given.
+const view = { filter: 'all', status: 'all', query: '', selected: null, tab: 'checklist', panel: null };
 let trophies = [];
 let statusTimer;
 
@@ -27,11 +29,11 @@ function commit() {
 const on = {
   earn(name, yes) { setEarned(progress, name, yes); commit(); },
   reveal(name) { if (!progress.revealed.includes(name)) progress.revealed.push(name); view.selected = name; commit(); },
-  select(name) { view.selected = name; render(); },
+  select(name) { view.selected = name; view.panel = null; render(); },
   count(t, v) { setCounter(progress, t, v); commit(); },
   filter(key) { view.filter = key; render(); },
   clearFilters() { Object.assign(view, { filter: 'all', status: 'all', query: '' }); $('search').value = ''; render(); },
-  open(name) { view.selected = name; showTab('checklist'); },
+  open(name) { view.selected = name; view.panel = null; showTab('checklist'); },
 };
 
 function renderTally() {
@@ -56,7 +58,10 @@ function render() {
   renderFilters($('filters'), trophies, progress, view, on);
   for (const b of $('status-filter').querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.status === view.status));
   renderList($('rows'), list, progress, view, on);
-  renderDetail($('detail'), trophies.find((t) => t.name === view.selected), progress, STAGES, on);
+  if (view.panel === 'check') $('detail').replaceChildren(renderDataCheck(trophies, progress, closePanel));
+  else if (view.panel) $('detail').replaceChildren(view.panel);
+  else renderDetail($('detail'), trophies.find((t) => t.name === view.selected), progress, STAGES, on);
+  $('open-check').setAttribute('aria-pressed', String(view.panel === 'check'));
 }
 
 function showTab(tab) {
@@ -70,8 +75,16 @@ function showTab(tab) {
   if (tab === 'checklist') document.querySelector('.row.is-open')?.scrollIntoView({ block: 'nearest' });
 }
 
+function showPanel(panel) {
+  view.panel = panel;
+  showTab('checklist');
+  $('detail').scrollTop = 0;
+  $('detail').querySelector('h2')?.focus?.();
+}
+function closePanel() { view.panel = null; render(); }
+
 const transferCtx = {
-  dialog: $('dialog'), get trophies() { return trophies; }, say,
+  dialog: $('dialog'), get trophies() { return trophies; }, say, showPanel, closePanel,
   getProgress: () => progress, setProgress: (p) => { progress = p; commit(); },
 };
 
@@ -92,6 +105,7 @@ async function boot() {
   $('status-filter').addEventListener('click', (e) => { const s = e.target.closest('button')?.dataset.status; if (s) { view.status = s; render(); } });
   $('tab-checklist').addEventListener('click', () => showTab('checklist'));
   $('tab-roadmap').addEventListener('click', () => showTab('roadmap'));
+  $('open-check').addEventListener('click', () => (view.panel === 'check' ? closePanel() : showPanel('check')));
   showTab(location.hash === '#roadmap' ? 'roadmap' : 'checklist');
 }
 

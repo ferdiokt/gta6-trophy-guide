@@ -27,9 +27,12 @@
     <button type="button" class="btn btn-quiet" id="reset">Reset</button>
   </div>
 </header>
-<nav class="tabs" role="tablist" aria-label="Views">
-  <button type="button" role="tab" id="tab-checklist" aria-controls="view-checklist" aria-selected="true">Checklist</button>
-  <button type="button" role="tab" id="tab-roadmap" aria-controls="view-roadmap" aria-selected="false">Platinum roadmap</button>
+<nav class="tabs" aria-label="Views">
+  <div class="tablist" role="tablist">
+    <button type="button" role="tab" id="tab-checklist" aria-controls="view-checklist" aria-selected="true">Checklist</button>
+    <button type="button" role="tab" id="tab-roadmap" aria-controls="view-roadmap" aria-selected="false">Platinum roadmap</button>
+  </div>
+  <button type="button" class="nav-check" id="open-check" aria-pressed="false" aria-controls="detail">Data check</button>
   <p class="status" id="status" role="status"></p>
 </nav>
 <main>

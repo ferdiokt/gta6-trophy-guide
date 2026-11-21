@@ -1,4 +1,4 @@
-// Export, import (validate, then Merge or Replace) and Reset (confirm first), wired to the top bar.
+// Export, import (validate, then Merge or Replace in the side panel) and Reset (confirm first), wired to the top bar.
 import { el } from './dom.js';
 import { buildExport, parseImport, applyImport, importSummary, emptyProgress } from './progress.js';
 
@@ -20,31 +20,39 @@ function showDialog(dialog, title, body, actions) {
   if (!dialog.open) dialog.showModal();
 }
 
+// The import review sits in the guide pane beside the list (not a modal), so the checklist stays readable.
+function importPanel(title, body, actions) {
+  return el('section', { class: 'side-panel', 'aria-labelledby': 'import-title' },
+    el('header', { class: 'side-head' }, el('h2', { id: 'import-title', class: 'side-title', tabindex: -1 }, title)),
+    ...body, el('div', { class: 'dlg-actions' }, actions));
+}
+
 // Reads the picked file, shows what it holds and lets the reader choose Merge or Replace.
 export async function startImport(file, ctx) {
-  const { dialog, trophies, getProgress, setProgress, say } = ctx;
+  const { trophies, getProgress, setProgress, say, showPanel, closePanel } = ctx;
   let result;
   try {
     result = parseImport(await file.text(), trophies);
   } catch (err) {
-    showDialog(dialog, 'Import refused', [el('p', { class: 'dlg-error' }, err.message)],
-      [el('button', { class: 'btn', value: 'close' }, 'Close')]);
+    showPanel(importPanel('Import refused', [el('p', { class: 'dlg-error', role: 'alert' }, err.message)],
+      [el('button', { type: 'button', class: 'btn', onclick: closePanel }, 'Close')]));
     return;
   }
   const summary = importSummary(result);
   const apply = (mode) => {
+    closePanel();
     setProgress(applyImport(getProgress(), result.progress, mode));
     say(`Imported ${summary} (${mode === 'merge' ? 'merged' : 'replaced'}).`);
   };
-  showDialog(dialog, 'Import progress', [
+  showPanel(importPanel('Import progress', [
     el('p', { class: 'dlg-summary' }, summary),
     result.ignored.length ? el('p', { class: 'dlg-ignored' }, `Ignored, not on the official list: ${result.ignored.join(', ')}.`) : null,
     el('p', {}, `From ${file.name}. Merge keeps what you have and adds the file's trophies; Replace makes the file your whole progress.`),
   ], [
-    el('button', { class: 'btn', value: 'cancel' }, 'Cancel'),
-    el('button', { class: 'btn', value: 'replace', onclick: () => apply('replace') }, 'Replace'),
-    el('button', { class: 'btn btn-primary', value: 'merge', autofocus: true, onclick: () => apply('merge') }, 'Merge'),
-  ]);
+    el('button', { type: 'button', class: 'btn', onclick: closePanel }, 'Cancel'),
+    el('button', { type: 'button', class: 'btn', onclick: () => apply('replace') }, 'Replace'),
+    el('button', { type: 'button', class: 'btn btn-primary', onclick: () => apply('merge') }, 'Merge'),
+  ]));
 }
 
 export function confirmReset(ctx) {

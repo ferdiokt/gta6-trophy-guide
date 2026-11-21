@@ -84,6 +84,11 @@ label.btn:has(+ input:focus-visible) { outline: 2px solid var(--color-focus); ou
 [role="tab"] { white-space: nowrap; border: 0; background: none; padding: 0 var(--space-md); font-weight: 600; cursor: pointer; box-shadow: inset 0 -4px 0 transparent; transition: box-shadow var(--dur-micro); }
 [role="tab"]:hover { box-shadow: inset 0 -4px 0 var(--color-rule); }
 [role="tab"][aria-selected="true"] { box-shadow: inset 0 -4px 0 var(--color-ink); }
+.tablist { display: flex; align-items: stretch; gap: var(--space-2xs); }
+.nav-check { align-self: center; white-space: nowrap; min-height: 30px; margin-left: var(--space-sm); padding: 0 var(--space-sm); border: 0; background: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-ink); font-size: var(--text-sm); font-weight: 600; cursor: pointer; transition: background-color var(--dur-micro), transform var(--dur-micro); }
+.nav-check:hover { background: var(--color-paper-3); }
+.nav-check:active { transform: scale(0.96); }
+.nav-check[aria-pressed="true"] { background: var(--color-accent); }
 .status { margin-left: auto; align-self: center; font-size: var(--text-sm); font-weight: 600; }
 
 /* Checklist */
@@ -141,6 +146,31 @@ input[type="search"]::placeholder { color: var(--color-muted); }
 .detail-name { font-size: var(--text-2xl); }
 .detail-desc { font-size: var(--text-lg); line-height: 1.35; }
 .miss-note { padding: var(--space-sm) var(--space-md); background: var(--color-accent-2); line-height: 1.4; }
+.miss-note.miss-unconfirmed { background: var(--color-paper-2); box-shadow: inset 4px 0 0 var(--color-accent-2); }
+.miss-note.miss-safe { padding: var(--space-xs) var(--space-sm); background: none; box-shadow: inset 4px 0 0 var(--color-accent); font-size: var(--text-sm); }
+.tag-unconfirmed { background: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-accent-2); color: var(--color-ink); font-weight: 600; }
+.tag-missable { background: var(--color-ink); color: var(--color-paper); font-weight: 600; }
+.stage-count { flex: none; font-size: 12px; color: var(--color-ink-2); font-variant-numeric: tabular-nums; }
+
+/* Side panel: the data check and the import review take the guide pane, leaving the list in view */
+.side-panel { display: grid; gap: var(--space-sm); align-content: start; }
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: var(--rule-bar) solid var(--color-ink); }
+.side-title { font-size: var(--text-xl); }
+.side-title:focus { outline: none; }
+.check-verdict { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; text-transform: uppercase; font-size: var(--text-lg); line-height: 1.1; padding: var(--space-xs) var(--space-sm); background: var(--color-accent); }
+.check-verdict.is-off { background: var(--color-error); color: var(--color-paper); }
+.check-sum { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; font-size: var(--text-xl); font-variant-numeric: tabular-nums; line-height: 1; }
+.check-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.check-table th, .check-table td { padding: var(--space-2xs) var(--space-xs) var(--space-2xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); text-align: left; }
+.check-table thead th { font-size: var(--text-xs); color: var(--color-ink-2); font-weight: 600; border-bottom: 2px solid var(--color-ink); }
+.check-table tbody th { font-weight: 600; }
+.check-table td { width: 4.5rem; }
+.check-table td.check-mark { width: 1.5rem; font-weight: 600; }
+.check-table tr.is-off { color: var(--color-error); }
+.check-line { font-size: var(--text-sm); line-height: 1.4; }
+.check-kinds { display: inline; margin: 0; padding: 0; list-style: none; }
+.check-kinds li { display: inline-block; margin-right: var(--space-sm); }
+.check-kinds b { font-variant-numeric: tabular-nums; }
 .counter { display: flex; align-items: center; gap: var(--space-xs); flex-wrap: wrap; }
 .counter-label { font-weight: 600; font-size: var(--text-sm); margin-right: var(--space-2xs); }
 .counter input { width: 96px; min-height: 36px; padding: 0 var(--space-xs); border: 0; box-shadow: inset 0 0 0 2px var(--color-ink); background: var(--color-paper); font-variant-numeric: tabular-nums; text-align: right; }
@@ -161,9 +191,9 @@ input[type="search"]::placeholder { color: var(--color-muted); }
 .earned-at { font-size: var(--text-sm); color: var(--color-ink-2); }
 
 /* Roadmap */
-.roadmap { height: 100%; overflow-y: auto; padding: var(--space-sm) var(--space-lg); display: grid; gap: var(--space-sm); align-content: start; }
+.roadmap { height: 100%; overflow-y: auto; padding: var(--space-xs) var(--space-lg); display: grid; gap: var(--space-xs); align-content: start; }
 .bills { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: var(--rule-bar) solid var(--color-ink); }
-.bill { padding: var(--space-sm) var(--space-sm) var(--space-xs); border-bottom: var(--rule-hair) solid var(--color-ink); border-right: var(--rule-hair) solid var(--color-ink); display: grid; align-content: start; gap: var(--space-xs); }
+.bill { padding: var(--space-xs) var(--space-sm) var(--space-2xs); border-bottom: var(--rule-hair) solid var(--color-ink); border-right: var(--rule-hair) solid var(--color-ink); display: grid; align-content: start; gap: var(--space-xs); }
 .bill:first-child { border-left: var(--rule-hair) solid var(--color-ink); }
 .bill-head { display: flex; gap: var(--space-xs); align-items: center; }
 .bill-num { display: grid; place-content: center; width: 40px; height: 40px; flex: none; font-family: var(--font-display); font-weight: 900; font-stretch: 150%; font-size: var(--text-2xl); font-variant-numeric: tabular-nums; }
@@ -174,22 +204,23 @@ input[type="search"]::placeholder { color: var(--color-muted); }
 .bill-count { font-size: var(--text-sm); color: var(--color-ink-2); font-variant-numeric: tabular-nums; }
 .bill-plan { font-size: 13px; line-height: 1.35; color: var(--color-ink-2); }
 .stage-list { margin: 0; padding: 0; list-style: none; border-top: var(--rule-hair) solid var(--color-rule); }
-.stage-link { display: flex; align-items: center; gap: var(--space-2xs); width: 100%; min-height: 22px; padding: 1px 0; font-size: 13px; line-height: 1.2; border: 0; background: none; text-align: left; cursor: pointer; font-size: var(--text-sm); }
+.stage-link { display: flex; align-items: center; gap: var(--space-2xs); width: 100%; min-height: 20px; padding: 0; font-size: 13px; line-height: 1.15; border: 0; background: none; text-align: left; cursor: pointer; }
 .stage-link:hover .stage-name, .stage-link:hover .miss-name { text-decoration: underline 2px var(--color-accent); text-underline-offset: 0.18em; }
 .stage-item { border-bottom: var(--rule-hair) solid var(--color-rule); }
 .stage-check { width: 14px; height: 14px; flex: none; display: grid; place-content: center; box-shadow: inset 0 0 0 1px var(--color-ink); font-size: 10px; font-weight: 600; }
 .stage-item.is-earned .stage-check { background: var(--color-accent); }
 .stage-name, .miss-name { flex: 1; min-width: 0; line-height: 1.25; }
-.road-top { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--space-md); align-items: end; }
+.road-top { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: var(--space-md); align-items: end; }
 .road-src { font-size: var(--text-sm); color: var(--color-ink-2); }
-.missables { padding: var(--space-sm) var(--space-md); background: var(--color-accent-2); display: grid; gap: var(--space-xs); }
+.missables { padding: var(--space-xs) var(--space-md); background: var(--color-accent-2); display: grid; gap: var(--space-2xs); }
 .miss-title { font-size: var(--text-md); }
 .miss-lede { font-size: var(--text-sm); }
-.miss-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-md); }
+.miss-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-md); }
+.missables .cite { font-size: 12px; line-height: 1.45; }
 .miss-list li { padding: var(--space-xs) 0; border-top: var(--rule-hair) solid var(--color-ink); }
 .miss-list .grade-bronze { color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
 .miss-name { font-weight: 600; }
-.miss-why { font-size: var(--text-sm); line-height: 1.35; }
+.miss-why { font-size: 13px; line-height: 1.35; }
 .miss-list li.is-earned .miss-name { text-decoration: line-through; }
 
 /* Dialog */

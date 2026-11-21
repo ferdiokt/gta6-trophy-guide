@@ -67,3 +67,12 @@ test('data: 55 trophies, every guide has steps, every cited step names a real so
     for (const s of t.steps) for (const i of s.src || []) assert.ok(t.sources[i]?.url.startsWith('https://'), `${t.name} step source ${i}`);
   }
 });
+
+test('data check: the file matches the official totals, with 2+ source sites and a sourced missable verdict each', async () => {
+  const { dataChecks } = await import('../app/js/datacheck.js');
+  for (const row of dataChecks(trophies)) assert.ok(row.ok, `${row.label}: ${row.got} vs ${row.want}`);
+  const bad = structuredClone(trophies);
+  bad[1].grade = 'gold';
+  delete bad[2].miss;
+  assert.deepEqual(dataChecks(bad).filter((r) => !r.ok).map((r) => r.label), ['gold', 'bronze', 'Missable verdict with its source']);
+});

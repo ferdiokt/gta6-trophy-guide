@@ -1,11 +1,11 @@
 // The checklist: filter chips, the ruled trophy list, and the open trophy's cited guide beside it.
-import { el, gradeBadge, missLabel, KIND_LABEL, GRADE_LABEL } from './dom.js';
+import { el, gradeBadge, missLabel, missStatus, isAtRisk, citeChips, KIND_LABEL, GRADE_LABEL } from './dom.js';
 import { isShielded, searchableText } from './spoilers.js';
 
 export const FILTERS = [
   { key: 'all', label: 'All', test: () => true },
   { key: 'story', label: 'Story', test: (t) => t.kind === 'story' },
-  { key: 'missable', label: 'Missable', test: (t) => Boolean(t.missable) },
+  { key: 'missable', label: 'Missable', test: isAtRisk },
   { key: 'collectible', label: 'Collectibles', test: (t) => t.kind === 'collectible' },
   { key: 'activity', label: 'Activities', test: (t) => t.kind === 'activity' },
   { key: 'side', label: 'Strangers', test: (t) => t.kind === 'side' },
@@ -57,16 +57,18 @@ export function renderList(root, list, progress, view, on) {
       el('span', { class: 'row-meta' },
         gradeBadge(t.grade),
         el('span', { class: 'tag' }, KIND_LABEL[t.kind]),
-        t.missable && !shut ? el('span', { class: 'tag tag-miss' }, missLabel(t)) : null,
+        isAtRisk(t) && !shut ? el('span', { class: `tag tag-miss tag-${missStatus(t)}` }, missLabel(t)) : null,
         t.count && !shut ? el('span', { class: 'tag tag-count' }, counterText(t, progress)) : null,
         shut ? el('button', { type: 'button', class: 'reveal', onclick: () => on.reveal(t.name) }, 'Reveal') : null));
   }));
 }
 
-function sourceRefs(step, sources) {
-  return (step.src || []).map((i) => el('a', {
-    class: 'cite', href: sources[i].url, target: '_blank', rel: 'noopener noreferrer', title: sources[i].url,
-  }, sources[i].name));
+// The missable verdict for one trophy, with the chapter it hangs on and the sources behind it.
+function missNote(t) {
+  const m = t.miss;
+  if (!m) return null;
+  return el('div', { class: `miss-note miss-${m.status}` },
+    el('p', {}, el('strong', {}, `${missLabel(t)}${m.where ? `: ${m.where}` : ''}. `), m.note, ' ', ...citeChips(m.src, t.sources)));
 }
 
 export function renderDetail(root, t, progress, stages, on) {
@@ -76,7 +78,7 @@ export function renderDetail(root, t, progress, stages, on) {
   const head = el('header', { class: 'detail-head' },
     el('div', { class: 'detail-meta' }, gradeBadge(t.grade), el('span', { class: 'tag' }, KIND_LABEL[t.kind]),
       el('span', { class: 'tag' }, `Stage ${t.stage}: ${stages[t.stage - 1].title}`),
-      t.chapter ? el('span', { class: 'tag' }, `Chapter ${t.chapter}`) : null),
+      t.chapter ? el('span', { class: 'tag' }, t.kind === 'story' ? `Chapter ${t.chapter}` : `From chapter ${t.chapter}`) : null),
     el('h2', { class: 'detail-name' }, shut ? 'Hidden trophy' : t.name),
     el('p', { class: 'detail-desc' }, shut ? `A ${GRADE_LABEL[t.grade].toLowerCase()} ${KIND_LABEL[t.kind].toLowerCase()} trophy. Its name, description and guide stay hidden while the spoiler shield is on.` : t.description));
 
@@ -90,7 +92,7 @@ export function renderDetail(root, t, progress, stages, on) {
   }
 
   const parts = [head];
-  if (t.missable) parts.push(el('p', { class: 'miss-note' }, el('strong', {}, `${missLabel(t)}. `), t.missable));
+  parts.push(missNote(t));
   if (t.count) {
     const v = progress.counters[t.name] || 0;
     const step = t.count >= 1000 ? 5000 : 1;
@@ -103,9 +105,9 @@ export function renderDetail(root, t, progress, stages, on) {
       el('span', { class: 'meter', style: `--fill:${(v / t.count).toFixed(3)}` })));
   }
   parts.push(el('h3', { class: 'guide-title' }, 'How to earn it'));
-  parts.push(el('ol', { class: 'steps' }, t.steps.map((s) => el('li', {}, s.text, ' ', ...sourceRefs(s, t.sources)))));
+  parts.push(el('ol', { class: 'steps' }, t.steps.map((s) => el('li', {}, s.text, ' ', ...citeChips(s.src, t.sources)))));
   parts.push(el('div', { class: 'sources' },
-    el('h3', { class: 'guide-title' }, t.sources.length ? 'Sources' : 'No source yet'),
+    el('h3', { class: 'guide-title' }, t.sources.length ? `Sources (${t.sources.length})` : 'No source yet'),
     t.sources.length
       ? el('ul', {}, t.sources.map((s) => el('li', {}, el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.name), el('span', { class: 'src-url' }, ` ${new URL(s.url).hostname.replace(/^www\./, '')}`))))
       : el('p', {}, 'No public guide covers this trophy yet, so the steps above say only what its official description implies.')));

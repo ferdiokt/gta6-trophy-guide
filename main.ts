@@ -13,7 +13,7 @@ const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 const GRADES = new Set(['platinum', 'gold', 'silver', 'bronze']);
 
 // Refuse to hand in a trophy file the gate or the app would choke on: 55 named trophies, each with
-// a grade, a non-blank guide and steps whose source indexes point at a real https source.
+// a grade, a non-blank guide, a sourced missable verdict and steps whose source indexes point at a real https source.
 function assertTrophies(path: string): void {
   const doc = JSON.parse(readFileSync(path, 'utf8'));
   const list = Array.isArray(doc) ? doc : doc.trophies;
@@ -25,6 +25,8 @@ function assertTrophies(path: string): void {
     names.add(t.name);
     if (!GRADES.has(t.grade)) throw new Error(`${where}: bad grade ${t.grade}`);
     if (typeof t.guide !== 'string' || !t.guide.trim()) throw new Error(`${where}: blank guide`);
+    if (!['missable', 'unconfirmed', 'safe'].includes(t.miss?.status) || !t.miss.src?.length) throw new Error(`${where}: missing a sourced missable verdict`);
+    for (const i of t.miss.src) if (!/^https:\/\//.test(t.sources?.[i]?.url ?? '')) throw new Error(`${where}: missable verdict cites missing source ${i}`);
     for (const s of t.steps ?? []) {
       for (const i of s.src ?? []) if (!/^https:\/\//.test(t.sources?.[i]?.url ?? '')) throw new Error(`${where}: step cites missing source ${i}`);
     }

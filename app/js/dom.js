@@ -20,5 +20,15 @@ export function gradeBadge(grade) {
   return el('span', { class: `grade grade-${grade}`, title: `${GRADE_LABEL[grade]} trophy` }, GRADE_LABEL[grade]);
 }
 
-// "Possibly missable" where the cited source has not confirmed the lockout.
-export const missLabel = (t) => t.missable_label || 'Missable';
+// Every trophy carries miss.status: missable (a part can be lost for good), unconfirmed (no source settles it) or safe.
+export const MISS_LABEL = { missable: 'Missable', unconfirmed: 'Unconfirmed', safe: 'Not missable' };
+export const missStatus = (t) => t.miss?.status ?? 'safe';
+export const isAtRisk = (t) => missStatus(t) !== 'safe';
+export const missLabel = (t) => MISS_LABEL[missStatus(t)];
+
+// Links to the sources a step or a miss record cites by index, each chip named for its source.
+export function citeChips(indexes, sources) {
+  return (indexes || []).map((i) => el('a', {
+    class: 'cite', href: sources[i].url, target: '_blank', rel: 'noopener noreferrer', title: sources[i].url,
+  }, sources[i].name));
+}
