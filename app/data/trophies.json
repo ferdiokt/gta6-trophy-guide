@@ -394,7 +394,7 @@
   {
    "id": 28, "name": "Positive Mental Attitude", "description": "Meditate at every spot across Leonida.", "grade": "bronze",
    "kind": "collectible", "chapter": 1, "stage": 1, "hidden": false, "count": 18,
-   "miss": { "status": "missable", "where": "Chapter 1, the morning after Down to Earth", "note": "The balcony meditation with Lucia is gone for good once Chapter 1 ends. No guide has confirmed whether the trophy needs it, so take it.", "src": [0, 1, 2] },
+   "miss": { "status": "missable", "where": "Chapter 1, the morning after Down to Earth", "note": "The balcony meditation with Lucia is gone for good once Chapter 1 ends, and the official text asks for every spot. PowerPyx earned the trophy with it done; nobody has shown it pops without it.", "src": [0, 1, 2] },
    "guide": "18 meditations at 10 spots. The first is a Chapter 1 scene with Lucia that is lost after that chapter, so accept it. Sources: PowerPyx, GTABase, GamesRadar.",
    "steps": [
     { "text": "After Down to Earth in Chapter 1, talk to Lucia in Jason's kitchen in the morning, follow her to the balcony and accept the meditation.", "src": [0, 1] },

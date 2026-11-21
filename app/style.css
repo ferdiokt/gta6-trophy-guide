@@ -157,10 +157,10 @@ input[type="search"]::placeholder { color: var(--color-muted); }
 .side-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: var(--rule-bar) solid var(--color-ink); }
 .side-title { font-size: var(--text-xl); }
 .side-title:focus { outline: none; }
-.check-verdict { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; text-transform: uppercase; font-size: var(--text-lg); line-height: 1.1; padding: var(--space-xs) var(--space-sm); background: var(--color-accent); }
+.check-verdict { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; text-transform: uppercase; font-size: var(--text-xl); line-height: 1.1; padding: var(--space-xs) var(--space-sm); background: var(--color-accent); }
 .check-verdict.is-off { background: var(--color-error); color: var(--color-paper); }
-.check-sum { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; font-size: var(--text-xl); font-variant-numeric: tabular-nums; line-height: 1; }
-.check-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.check-sum { font-family: var(--font-display); font-weight: 900; font-stretch: 150%; font-size: var(--text-2xl); font-variant-numeric: tabular-nums; line-height: 1; }
+.check-table { width: 100%; border-collapse: collapse; font-size: var(--text-md); font-variant-numeric: tabular-nums; }
 .check-table th, .check-table td { padding: var(--space-2xs) var(--space-xs) var(--space-2xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); text-align: left; }
 .check-table thead th { font-size: var(--text-xs); color: var(--color-ink-2); font-weight: 600; border-bottom: 2px solid var(--color-ink); }
 .check-table tbody th { font-weight: 600; }
@@ -246,6 +246,9 @@ input[type="search"]::placeholder { color: var(--color-muted); }
   .list-pane { border-right: 0; }
   .rows { max-height: 70vh; }
   .toolbar-row { flex-wrap: wrap; }
+  .tabs { height: auto; flex-wrap: wrap; padding-block: var(--space-2xs); }
+  .tabs [role="tab"] { min-height: 40px; }
+  .nav-check { margin-left: 0; }
   .tally-side { min-width: 0; }
   .row { grid-template-columns: 44px minmax(0, 1fr); padding-right: var(--space-md); }
   .row-meta { grid-column: 2; justify-content: flex-start; max-width: none; padding-bottom: var(--space-xs); }

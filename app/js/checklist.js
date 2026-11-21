@@ -104,6 +104,10 @@ export function renderDetail(root, t, progress, stages, on) {
       el('button', { type: 'button', class: 'btn btn-sq', 'aria-label': 'Increase', onclick: () => on.count(t, v + step) }, '+'),
       el('span', { class: 'meter', style: `--fill:${(v / t.count).toFixed(3)}` })));
   }
+  // Mark earned sits above the guide so it stays in view however long the steps run.
+  parts.push(el('div', { class: 'detail-actions' },
+    el('button', { type: 'button', class: `btn ${earned ? '' : 'btn-primary'}`, onclick: () => on.earn(t.name, !earned) }, earned ? 'Mark not earned' : 'Mark earned'),
+    earned ? el('span', { class: 'earned-at' }, `Earned ${new Date(progress.earned[t.name]).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`) : null));
   parts.push(el('h3', { class: 'guide-title' }, 'How to earn it'));
   parts.push(el('ol', { class: 'steps' }, t.steps.map((s) => el('li', {}, s.text, ' ', ...citeChips(s.src, t.sources)))));
   parts.push(el('div', { class: 'sources' },
@@ -111,8 +115,5 @@ export function renderDetail(root, t, progress, stages, on) {
     t.sources.length
       ? el('ul', {}, t.sources.map((s) => el('li', {}, el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.name), el('span', { class: 'src-url' }, ` ${new URL(s.url).hostname.replace(/^www\./, '')}`))))
       : el('p', {}, 'No public guide covers this trophy yet, so the steps above say only what its official description implies.')));
-  parts.push(el('div', { class: 'detail-actions' },
-    el('button', { type: 'button', class: `btn ${earned ? '' : 'btn-primary'}`, onclick: () => on.earn(t.name, !earned) }, earned ? 'Mark not earned' : 'Mark earned'),
-    earned ? el('span', { class: 'earned-at' }, `Earned ${new Date(progress.earned[t.name]).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`) : null));
   root.replaceChildren(...parts);
 }
